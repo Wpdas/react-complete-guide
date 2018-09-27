@@ -3,6 +3,7 @@ import classes from './Person.css';
 import Aux from '../../../hoc/Aux';
 import withClass from '../../../hoc/withClass';
 import PropTypes from 'prop-types';
+import { AuthContext } from '../../../containers/App';
 
 class Person extends React.PureComponent {
   constructor(props) {
@@ -25,6 +26,9 @@ class Person extends React.PureComponent {
 
     return (
       <Aux>
+        <AuthContext.Consumer>
+          {auth => (auth ? <p>I'm authenticated!</p> : null)}
+        </AuthContext.Consumer>
         <p onClick={click}>
           I'm {name} and I am {age} years old!
         </p>

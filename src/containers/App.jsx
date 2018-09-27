@@ -7,6 +7,8 @@ import Aux from '../hoc/Aux';
 import withClass from '../hoc/withClass';
 import Person from '../components/Persons/Person/Person';
 
+export const AuthContext = React.createContext(false);
+
 // (i) Using PureComponent, React automaticaly handler of using
 // shouldCompomentUpdate lifecycle, doing it by comparing primitives props.
 class App extends PureComponent {
@@ -19,7 +21,8 @@ class App extends PureComponent {
         { name: 'Lucrecia', age: 27, id: 2 }
       ],
       showPersons: false,
-      toggleClicked: 0
+      toggleClicked: 0,
+      authenticated: false
     };
   }
 
@@ -76,6 +79,10 @@ class App extends PureComponent {
     });
   };
 
+  loginHandler = () => {
+    this.setState({ authenticated: true });
+  };
+
   render() {
     let persons = null;
 
@@ -97,8 +104,11 @@ class App extends PureComponent {
           persons={this.state.persons}
           showPersons={this.state.showPersons}
           clicked={this.togglePersonHandler}
+          login={this.loginHandler}
         />
-        {persons}
+        <AuthContext.Provider value={this.state.authenticated}>
+          {persons}
+        </AuthContext.Provider>
       </Aux>
     );
   }

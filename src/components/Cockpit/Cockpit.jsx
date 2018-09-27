@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Cockpit.css';
 import Aux from '../../hoc/Aux';
 
-const Cockpit = ({ appTitle, persons, showPersons, clicked }) => {
+const Cockpit = ({ appTitle, persons, showPersons, clicked, login }) => {
   // To use style classes dinamicaly
   const assignedClasses = [];
   let btnClass = classes.Button;
@@ -25,6 +25,7 @@ const Cockpit = ({ appTitle, persons, showPersons, clicked }) => {
       <button className={btnClass} type="button" onClick={clicked}>
         Toggle Persons
       </button>
+      <button onClick={login}>Log in</button>
     </Aux>
   );
 };
