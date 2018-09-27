@@ -16,7 +16,8 @@ class App extends PureComponent {
         { name: 'Wenderson', age: 28, id: 1 },
         { name: 'Lucrecia', age: 27, id: 2 }
       ],
-      showPersons: false
+      showPersons: false,
+      toggleClicked: 0
     };
   }
 
@@ -56,7 +57,21 @@ class App extends PureComponent {
 
   togglePersonHandler = () => {
     const doesShow = this.state.showPersons;
-    this.setState({ showPersons: !doesShow });
+    //(i) BEST PRACTICE TO MUTATE STATES
+    // Using this.state inside this.setState is a bad practice
+    // this.setState is an async function
+    // this.setState({
+    //   showPersons: !doesShow,
+    //   toggleClicked: this.state.toggleClicked + 1
+    // });
+
+    //Solution (not using the current state, relying on the previous state)
+    this.setState((prevState, props) => {
+      return {
+        showPersons: !doesShow,
+        toggleClicked: prevState.toggleClicked + 1
+      };
+    });
   };
 
   render() {
