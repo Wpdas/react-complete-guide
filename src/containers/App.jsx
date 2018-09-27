@@ -26,12 +26,19 @@ class App extends PureComponent {
     };
   }
 
-  componentWillMount() {
-    console.log('componentWillMount');
+  // Called before render()
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log('getDerivedStateFromProps', nextProps, prevState);
+    return prevState;
   }
 
-  componentDidMount() {
-    console.log('componentDidMont');
+  getSnapshotBeforeUpdate() {
+    console.log('getSnapshotBeforeUpdate');
+    return null;
+  }
+
+  componentDidUpdate() {
+    console.log('componentDidUpdate');
   }
 
   nameChangedHandler = (event, id) => {
