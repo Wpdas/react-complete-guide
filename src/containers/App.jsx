@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Aux from '../hoc/Aux';
 import withClass from '../hoc/withClass';
+import Person from '../components/Persons/Person/Person';
 
 // (i) Using PureComponent, React automaticaly handler of using
 // shouldCompomentUpdate lifecycle, doing it by comparing primitives props.
@@ -101,6 +103,13 @@ class App extends PureComponent {
     );
   }
 }
+
+Person.propTypes = {
+  click: PropTypes.func,
+  name: PropTypes.string,
+  age: PropTypes.number,
+  changed: PropTypes.func
+};
 
 // Name(APP) -> It's called Hight Order Component
 // Wrap App component inside
