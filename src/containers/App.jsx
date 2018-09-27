@@ -2,7 +2,8 @@ import React, { PureComponent } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
-import WithClass from '../hoc/WithClass';
+import Aux from '../hoc/Aux';
+import withClass from '../hoc/withClass';
 
 // (i) Using PureComponent, React automaticaly handler of using
 // shouldCompomentUpdate lifecycle, doing it by comparing primitives props.
@@ -71,8 +72,9 @@ class App extends PureComponent {
       );
     }
 
+    // <Aux></Aux> Jus wraps other components
     return (
-      <WithClass classes={classes.App}>
+      <Aux>
         <Cockpit
           appTitle={this.props.title}
           persons={this.state.persons}
@@ -80,7 +82,7 @@ class App extends PureComponent {
           clicked={this.togglePersonHandler}
         />
         {persons}
-      </WithClass>
+      </Aux>
     );
   }
 }
@@ -88,4 +90,6 @@ class App extends PureComponent {
 // Name(APP) -> It's called Hight Order Component
 // Wrap App component inside
 // export default Radium(App);
-export default App;
+// Props Proxy mode of use from HOC
+export default withClass(App, classes.App);
+// export default App;
