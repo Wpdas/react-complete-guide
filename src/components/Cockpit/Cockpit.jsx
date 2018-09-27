@@ -1,12 +1,13 @@
 import React from 'react';
 import classes from './Cockpit.css';
+import Aux from '../../hoc/Aux';
 
 const Cockpit = ({ appTitle, persons, showPersons, clicked }) => {
   // To use style classes dinamicaly
   const assignedClasses = [];
-  let btnClass = '';
+  let btnClass = classes.Button;
   if (showPersons) {
-    btnClass = classes.Red;
+    btnClass = [classes.Button, classes.Red].join(' ');
   }
 
   if (persons.length <= 2) {
@@ -18,13 +19,13 @@ const Cockpit = ({ appTitle, persons, showPersons, clicked }) => {
   }
 
   return (
-    <div className={classes.Cockpit}>
+    <Aux>
       <h1>{appTitle}</h1>
       <p className={assignedClasses.join(' ')}>This is really working!</p>
       <button className={btnClass} type="button" onClick={clicked}>
         Toggle Persons
       </button>
-    </div>
+    </Aux>
   );
 };
 

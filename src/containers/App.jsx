@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import WithClass from '../hoc/WithClass';
 
 // (i) Using PureComponent, React automaticaly handler of using
 // shouldCompomentUpdate lifecycle, doing it by comparing primitives props.
@@ -71,7 +72,7 @@ class App extends PureComponent {
     }
 
     return (
-      <div className={classes.App}>
+      <WithClass classes={classes.App}>
         <Cockpit
           appTitle={this.props.title}
           persons={this.state.persons}
@@ -79,7 +80,7 @@ class App extends PureComponent {
           clicked={this.togglePersonHandler}
         />
         {persons}
-      </div>
+      </WithClass>
     );
   }
 }
