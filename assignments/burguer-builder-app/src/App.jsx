@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
-import Aux from './hoc/Aux';
 import Layout from './components/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
+import Connect from './Connect';
+
+// export const appConnect = new Connect();
 
 class App extends Component {
+  // constructor(props) {
+  //   super(props);
+  //   appConnect.register(function(props) {
+  //     console.log(props);
+  //   });
+  // }
   render() {
     return (
-      <Aux>
+      <div>
         <Layout>
           <BurgerBuilder />
         </Layout>
-      </Aux>
+      </div>
     );
   }
 }
