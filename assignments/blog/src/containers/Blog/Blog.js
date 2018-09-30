@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import axios from '../../axios'; //MyInstance
 
 import Post from '../../components/Post/Post';
 import FullPost from '../../components/FullPost/FullPost';
@@ -9,22 +10,30 @@ import './Blog.css';
 class Blog extends Component {
   state = {
     posts: [],
-    selectedPostId: null
+    selectedPostId: null,
+    error: false
   };
 
   componentDidMount() {
-    axios.get('https://jsonplaceholder.typicode.com/posts').then(response => {
-      const posts = response.data.slice(0, 4);
-      const updatePosts = posts.map(post => {
-        return {
-          ...post,
-          author: 'Wenderson'
-        };
+    axios
+      .get('/posts')
+      .then(response => {
+        const posts = response.data.slice(0, 4);
+        const updatePosts = posts.map(post => {
+          return {
+            ...post,
+            author: 'Wenderson'
+          };
+        });
+        this.setState({
+          posts: updatePosts
+        });
+      })
+      .catch(() => {
+        this.setState({
+          error: true
+        });
       });
-      this.setState({
-        posts: updatePosts
-      });
-    });
   }
 
   postSelectedHandler = postId => {
@@ -32,16 +41,19 @@ class Blog extends Component {
   };
 
   render() {
-    const posts = this.state.posts.map(post => {
-      return (
-        <Post
-          title={post.title}
-          author={post.author}
-          clicked={() => this.postSelectedHandler(post.id)}
-          key={post.id}
-        />
-      );
-    });
+    let posts = <p style={{ textAlign: 'center' }}>Something went wrong!</p>;
+    if (!this.state.error) {
+      posts = this.state.posts.map(post => {
+        return (
+          <Post
+            title={post.title}
+            author={post.author}
+            clicked={() => this.postSelectedHandler(post.id)}
+            key={post.id}
+          />
+        );
+      });
+    }
 
     return (
       <div>
