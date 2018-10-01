@@ -49,7 +49,6 @@ class Blog extends Component {
         </header>
         {/* Ther order to setup routers is important */}
         <Switch>
-          import asyncComponent from '../../hoc/asyncComponent';
           {this.state.auth ? (
             <Route path="/new-post" component={AsyncNewPost} />
           ) : null}
