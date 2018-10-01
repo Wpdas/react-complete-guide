@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
-import axios from '../../axios'; //MyInstance
+import { Route, Link } from 'react-router-dom';
 
-import Post from '../../components/Post/Post';
-import FullPost from '../../components/FullPost/FullPost';
-import NewPost from '../../components/NewPost/NewPost';
 import './Blog.css';
+import Posts from './Posts/Posts';
+import NewPost from './NewPost/NewPost';
 
 class Blog extends Component {
   state = {
@@ -14,56 +12,38 @@ class Blog extends Component {
     error: false
   };
 
-  componentDidMount() {
-    axios
-      .get('/posts')
-      .then(response => {
-        const posts = response.data.slice(0, 4);
-        const updatePosts = posts.map(post => {
-          return {
-            ...post,
-            author: 'Wenderson'
-          };
-        });
-        this.setState({
-          posts: updatePosts
-        });
-      })
-      .catch(() => {
-        this.setState({
-          error: true
-        });
-      });
-  }
-
-  postSelectedHandler = postId => {
-    this.setState({ selectedPostId: postId });
-  };
-
   render() {
-    let posts = <p style={{ textAlign: 'center' }}>Something went wrong!</p>;
-    if (!this.state.error) {
-      posts = this.state.posts.map(post => {
-        return (
-          <Post
-            title={post.title}
-            author={post.author}
-            clicked={() => this.postSelectedHandler(post.id)}
-            key={post.id}
-          />
-        );
-      });
-    }
-
     return (
-      <div>
-        <section className="Posts">{posts}</section>
-        <section>
+      <div className="Blog">
+        <header>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                {/* <Link to="/new-post">New Post</Link> */}
+                <Link
+                  to={{
+                    pathname: '/new-post',
+                    hash: '#submit',
+                    search: '?quick-submit=true'
+                  }}
+                >
+                  New Post
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <Route path="/" component={Posts} exact />
+        <Route path="/new-post" component={NewPost} exact />
+        {/* <section>
           <FullPost id={this.state.selectedPostId} />
         </section>
         <section>
           <NewPost />
-        </section>
+        </section> */}
       </div>
     );
   }
