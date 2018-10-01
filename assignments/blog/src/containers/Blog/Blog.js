@@ -4,14 +4,14 @@ import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 
 import './Blog.css';
 import Posts from './Posts/Posts';
-import NewPost from './NewPost/NewPost';
-import FullPost from './FullPost/FullPost';
+import asyncComponent from '../../hoc/asyncComponent';
+// import NewPost from './NewPost/NewPost';
+
+const AsyncNewPost = asyncComponent(() => import('./NewPost/NewPost'));
 
 class Blog extends Component {
   state = {
-    posts: [],
-    selectedPostId: null,
-    error: false
+    auth: true
   };
 
   render() {
@@ -49,8 +49,12 @@ class Blog extends Component {
         </header>
         {/* Ther order to setup routers is important */}
         <Switch>
-          <Route path="/new-post" component={NewPost} />
+          import asyncComponent from '../../hoc/asyncComponent';
+          {this.state.auth ? (
+            <Route path="/new-post" component={AsyncNewPost} />
+          ) : null}
           <Route path="/posts" component={Posts} />
+          <Route render={() => <h1>Not found!</h1>} />
           <Redirect from="/" to="/posts" />
           {/* <Route path="/" component={Posts} /> */}
         </Switch>
