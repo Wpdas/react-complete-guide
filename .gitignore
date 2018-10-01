@@ -5,6 +5,7 @@
 /assignments/01-base/node_modules
 /assignments/02-two-way-binding/node_modules
 /assignments/burguer-builder-app/node_modules
+/assignments/blog/node_modules
 
 # testing
 /coverage
