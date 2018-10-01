@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, NavLink, Switch } from 'react-router-dom';
+// NavLink allow to setup other things such as style, etc
 
 import './Blog.css';
 import Posts from './Posts/Posts';
 import NewPost from './NewPost/NewPost';
+import FullPost from './FullPost/FullPost';
 
 class Blog extends Component {
   state = {
@@ -19,11 +21,20 @@ class Blog extends Component {
           <nav>
             <ul>
               <li>
-                <Link to="/">Home</Link>
+                <NavLink
+                  exact
+                  to="/posts/"
+                  activeStyle={{
+                    color: '#fa923f',
+                    textDecoration: 'underline'
+                  }}
+                >
+                  Posts
+                </NavLink>
               </li>
               <li>
                 {/* <Link to="/new-post">New Post</Link> */}
-                <Link
+                <NavLink
                   to={{
                     pathname: '/new-post',
                     hash: '#submit',
@@ -31,13 +42,16 @@ class Blog extends Component {
                   }}
                 >
                   New Post
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </nav>
         </header>
-        <Route path="/" component={Posts} exact />
-        <Route path="/new-post" component={NewPost} exact />
+        {/* Ther order to setup routers is important */}
+        <Switch>
+          <Route path="/new-post" component={NewPost} />
+          <Route path="/posts" component={Posts} />
+        </Switch>
         {/* <section>
           <FullPost id={this.state.selectedPostId} />
         </section>
