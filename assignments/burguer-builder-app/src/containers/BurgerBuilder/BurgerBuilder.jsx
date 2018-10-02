@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import Aux from '../../hoc/Aux/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -100,26 +101,22 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    this.setState({ loading: true });
+    const queryParams = [];
+    for (let i in this.state.ingredients) {
+      queryParams.push(
+        encodeURIComponent(i) +
+          '=' +
+          encodeURIComponent(this.state.ingredients[i])
+      );
+    }
+    queryParams.push('price=', this.state.totalPrice);
+    const queryString = queryParams.join('&');
 
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice.toFixed(2),
-      customer: {
-        name: 'Wenderson Pires',
-        address: {
-          street: 'My Street',
-          zipCode: '1234',
-          country: 'Brazil'
-        },
-        email: 'test@test.com'
-      },
-      deliveryMethod: 'fastest'
-    };
-    axiosOrders
-      .post('/orders.json', order)
-      .then(() => this.setState({ loading: false, purchasing: false }))
-      .catch(() => this.setState({ loading: false, purchasing: false }));
+    // Does the same that <Redirect to="/checkout" />
+    this.props.history.push({
+      pathname: '/checkout',
+      search: '?' + queryString
+    });
   };
 
   render() {
