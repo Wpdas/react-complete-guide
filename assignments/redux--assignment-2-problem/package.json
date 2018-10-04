@@ -1,15 +1,13 @@
 {
-  "name": "react-complete-guide",
+  "name": "react-assignment-2-problem",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.18.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
+    "react-redux": "^5.0.7",
     "react-scripts": "^1.1.5",
-    "rm": "^0.1.8"
+    "redux": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
