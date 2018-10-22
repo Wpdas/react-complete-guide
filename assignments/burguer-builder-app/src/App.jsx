@@ -6,6 +6,7 @@ import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Connect from './Connect';
 import Checkout from './containers/Checkout/Checkout';
 import Orders from './containers/Orders/Orders';
+import Auth from './containers/Auth/Auth';
 
 // export const appConnect = new Connect();
 
@@ -23,6 +24,7 @@ class App extends Component {
           <Switch>
             <Route path="/checkout" component={Checkout} />
             <Route path="/orders" component={Orders} exact />
+            <Route path="/auth" component={Auth} exact />
             <Route path="/" component={BurgerBuilder} exact />
           </Switch>
         </Layout>
