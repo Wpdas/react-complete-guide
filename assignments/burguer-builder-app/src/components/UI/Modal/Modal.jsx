@@ -12,10 +12,6 @@ class Modal extends React.Component {
     );
   }
 
-  componentWillUpdate() {
-    console.log('[Modal] componentWillUpdate');
-  }
-
   render() {
     let { children, show, modalClosed } = this.props;
     return (
